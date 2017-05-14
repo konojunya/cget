@@ -2,8 +2,8 @@ package Utils
 
 import (
 	"encoding/json"
-	"io/ioutil"
 	"log"
+	"github.com/konojunya/cget/Utils"
 )
 
 type Menu struct {
@@ -13,10 +13,7 @@ type Menu struct {
 
 func initMenu() []Menu {
 
-	bytes, err := ioutil.ReadFile("/Users/kounojunya/.cget/menu.json")
-	if err != nil {
-		log.Fatal(err)
-	}
+	bytes := Utils.FetchCode("https://raw.githubusercontent.com/konojunya/cget/master/menu.json")
 
 	var menus []Menu
 	if err := json.Unmarshal(bytes, &menus); err != nil {
