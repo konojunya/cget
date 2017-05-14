@@ -2,5 +2,9 @@
   {
     "key": "webpack.config.js",
     "url": "https://raw.githubusercontent.com/Lebe-Inc/react-handson-vol2/blank/level2/webpack.config.js"
+  },
+  {
+    "key": "main.go",
+    "url": "https://raw.githubusercontent.com/konojunya/cget/master/main.go"
   }
 ]
