@@ -15,7 +15,7 @@ func Init() {
 	case "help":
 		help()
 	case "list":
-		showAllMenu()
+		showAllFile()
 	case "get":
 		getCodeUrl(items[1])
 	default:
@@ -23,7 +23,7 @@ func Init() {
 	}
 }
 
-func showAllMenu() {
+func showAllFile() {
 	for _, key := range Utils.GetMenuKeys() {
 		fmt.Printf("%s\n", key)
 	}
@@ -36,8 +36,16 @@ func getCodeUrl(key string) {
 	Utils.Export(key,code)
 }
 
-func help() {}
+func help() {
+	fmt.Println("command list.")
+	fmt.Println("$ ./main list\t\tYou can get code list.")
+	fmt.Println("$ ./main get [key]\t\tYou can save file from key.")
+}
 
 func notfound() {
 	fmt.Println("this args is not found.")
+
+	fmt.Println("$ ./main list\t\tYou can get code list.")
+	fmt.Println("$ ./main get [key]\t\tYou can save file from key.")
+	fmt.Println("$ ./main help\t\thelp.")
 }
