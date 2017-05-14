@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/konojunya/get-code-from-github/Manager"
+	"github.com/konojunya/cget/Manager"
 )
 
 func main() {

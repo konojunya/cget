@@ -3,7 +3,7 @@ package Manager
 import (
 	"flag"
 	"fmt"
-	"github.com/konojunya/get-code-from-github/Utils"
+	"github.com/konojunya/cget/Utils"
 )
 
 func Init() {
