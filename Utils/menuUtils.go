@@ -13,7 +13,7 @@ type Menu struct {
 
 func initMenu() []Menu {
 
-	bytes, err := ioutil.ReadFile("/Users/kounojunya/.getcode/menu.json")
+	bytes, err := ioutil.ReadFile("/Users/kounojunya/.cget/menu.json")
 	if err != nil {
 		log.Fatal(err)
 	}
