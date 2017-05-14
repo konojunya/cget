@@ -3,7 +3,8 @@ package Utils
 import (
 	"encoding/json"
 	"log"
-	"github.com/konojunya/cget/Utils"
+	"net/http"
+	"io/ioutil"
 )
 
 type Menu struct {
@@ -13,7 +14,13 @@ type Menu struct {
 
 func initMenu() []Menu {
 
-	bytes := Utils.FetchCode("https://raw.githubusercontent.com/konojunya/cget/master/menu.json")
+	res, err := http.Get("https://raw.githubusercontent.com/konojunya/cget/master/menu.json")
+	if err != nil { log.Fatal(err) }
+
+	bytes, err := ioutil.ReadAll(res.Body)
+	defer res.Body.Close()
+
+	if err != nil { log.Fatal(err) }
 
 	var menus []Menu
 	if err := json.Unmarshal(bytes, &menus); err != nil {
