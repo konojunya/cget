@@ -1,9 +1,9 @@
 package Utils
 
 import (
-	"log"
 	"encoding/json"
 	"io/ioutil"
+	"log"
 )
 
 type Menu struct {
@@ -14,7 +14,9 @@ type Menu struct {
 func initMenu() []Menu {
 
 	bytes, err := ioutil.ReadFile("menu.json")
-	if err != nil { log.Fatal(err) }
+	if err != nil {
+		log.Fatal(err)
+	}
 
 	var menus []Menu
 	if err := json.Unmarshal(bytes, &menus); err != nil {
@@ -25,14 +27,29 @@ func initMenu() []Menu {
 
 }
 
-func GetMenuKey() []string {
+func GetMenuKeys() []string {
 	menus := initMenu()
 
 	var menuKeys []string
 
-	for _, item := range menus{
-		menuKeys = append(menuKeys,item.Key)
+	for _, item := range menus {
+		menuKeys = append(menuKeys, item.Key)
 	}
 
 	return menuKeys
+}
+
+func GetCodeUrl(key string) string {
+
+	menus := initMenu()
+
+	var url string
+
+	for _, item := range menus {
+		if item.Key == key {
+			url = item.Url
+		}
+	}
+
+	return url
 }
