@@ -16,7 +16,7 @@ func Init() {
 		help()
 	case "list":
 		showAllFile()
-	case "get":
+	case "fetch":
 		getCodeUrl(items[1])
 	default:
 		notfound()
@@ -40,14 +40,14 @@ func getCodeUrl(key string) {
 
 func help() {
 	fmt.Println("command list.")
-	fmt.Println("$ ./main list\t\tYou can get code list.")
-	fmt.Println("$ ./main get [key]\tYou can save file from key.")
+	fmt.Println("$ cget list\t\tYou can get code list.")
+	fmt.Println("$ cget fetch [key]\tYou can save file from key.")
 }
 
 func notfound() {
 	fmt.Println("this args is not found.")
 
-	fmt.Println("$ ./main list\t\tYou can get code list.")
-	fmt.Println("$ ./main get [key]\tYou can save file from key.")
-	fmt.Println("$ ./main help\t\thelp.")
+	fmt.Println("$ cget list\t\tYou can get code list.")
+	fmt.Println("$ cget fetch [key]\tYou can save file from key.")
+	fmt.Println("$ cget help\t\thelp.")
 }
