@@ -1,7 +1,11 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"github.com/konojunya/get-code-from-github/Utils"
+)
 
 func main() {
-	fmt.Println("Hello World")
+	code := Utils.FetchCode("https://raw.githubusercontent.com/Lebe-Inc/react-handson-vol2/blank/level2/webpack.config.js")
+	fmt.Printf("%s", code)
 }
