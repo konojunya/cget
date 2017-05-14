@@ -5,8 +5,9 @@ import (
 	"os"
 )
 
-func Export(code []byte) {
-	file, err := os.Create("webpack.config.js")
+func Export(filename string, code []byte) {
+	crr, _ := os.Getwd()
+	file, err := os.Create(crr + "/" + filename)
 	if err != nil {
 		log.Fatal(err)
 	}
