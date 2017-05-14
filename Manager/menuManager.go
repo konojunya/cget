@@ -6,7 +6,7 @@ import (
 	"github.com/konojunya/get-code-from-github/Utils"
 )
 
-func SelectAllMenu() {
+func Init() {
 
 	flag.Parse()
 	items := flag.Args()
@@ -33,7 +33,7 @@ func getCodeUrl(key string) {
 	url := Utils.GetCodeUrl(key)
 	code := Utils.FetchCode(url)
 
-	Utils.Export(code)
+	Utils.Export(key,code)
 }
 
 func help() {}
