@@ -33,6 +33,8 @@ func getCodeUrl(key string) {
 	url := Utils.GetCodeUrl(key)
 	code := Utils.FetchCode(url)
 
+	fmt.Printf("Downloading %s from %s...\n",key,url)
+
 	Utils.Export(key, code)
 }
 
