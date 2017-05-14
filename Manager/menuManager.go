@@ -39,13 +39,13 @@ func getCodeUrl(key string) {
 func help() {
 	fmt.Println("command list.")
 	fmt.Println("$ ./main list\t\tYou can get code list.")
-	fmt.Println("$ ./main get [key]\t\tYou can save file from key.")
+	fmt.Println("$ ./main get [key]\tYou can save file from key.")
 }
 
 func notfound() {
 	fmt.Println("this args is not found.")
 
 	fmt.Println("$ ./main list\t\tYou can get code list.")
-	fmt.Println("$ ./main get [key]\t\tYou can save file from key.")
+	fmt.Println("$ ./main get [key]\tYou can save file from key.")
 	fmt.Println("$ ./main help\t\thelp.")
 }
