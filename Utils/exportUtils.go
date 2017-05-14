@@ -6,7 +6,8 @@ import (
 )
 
 func Export(filename string, code []byte) {
-	file, err := os.Create(filename)
+	crr, _ := os.Getwd()
+	file, err := os.Create(crr + "/" + filename)
 	if err != nil {
 		log.Fatal(err)
 	}
