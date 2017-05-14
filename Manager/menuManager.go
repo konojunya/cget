@@ -33,7 +33,7 @@ func getCodeUrl(key string) {
 	url := Utils.GetCodeUrl(key)
 	code := Utils.FetchCode(url)
 
-	Utils.Export(key,code)
+	Utils.Export(key, code)
 }
 
 func help() {

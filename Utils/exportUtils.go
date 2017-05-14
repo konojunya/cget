@@ -5,7 +5,7 @@ import (
 	"os"
 )
 
-func Export(filename string,code []byte) {
+func Export(filename string, code []byte) {
 	file, err := os.Create(filename)
 	if err != nil {
 		log.Fatal(err)
