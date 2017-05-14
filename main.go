@@ -1,7 +1,11 @@
 package main
 
-import "fmt"
+import (
+	"github.com/konojunya/cget/Manager"
+)
 
 func main() {
-	fmt.Println("Hello World")
+
+	Manager.Init()
+
 }
