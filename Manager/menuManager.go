@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"github.com/konojunya/cget/Utils"
+	"github.com/konojunya/cget/Constants"
 )
 
 func Init() {
@@ -17,7 +18,7 @@ func Init() {
 	case "list":
 		showAllFile()
 	case "fetch":
-		getCodeUrl(items[1])
+		fetchCodes(items[1:])
 	default:
 		notfound()
 	}
@@ -29,13 +30,42 @@ func showAllFile() {
 	}
 }
 
-func getCodeUrl(key string) {
-	url := Utils.GetCodeUrl(key)
-	code := Utils.FetchCode(url)
+func fetchCodes(keys []string){
 
-	fmt.Printf("Downloading %s from %s...\n",key,url)
+	fmt.Println(keys)
 
-	Utils.Export(key, code)
+	statusChan := getCodeFromGithub(keys)
+	fmt.Println(<-statusChan)
+
+	for {
+		select {
+		case status := <-statusChan:
+			Utils.Export(status)
+			fmt.Println("join!")
+		}
+	}
+}
+
+func getCodeFromGithub(keys []string) <-chan *Constants.ExportFormat {
+
+	statusChan := make(chan *Constants.ExportFormat)
+
+	for _, key := range keys {
+		go func(key string){
+			url := Utils.GetCodeUrl(key)
+			code := Utils.FetchCode(url)
+
+			fmt.Printf("Downloading %s from %s...\n",key,url)
+
+			statusChan <- &Constants.ExportFormat{
+				Filename: key,
+				Code: code,
+			}
+		}(key)
+	}
+
+	return statusChan
+
 }
 
 func help() {
