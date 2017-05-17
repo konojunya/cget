@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"github.com/konojunya/cget/Utils"
+	"github.com/konojunya/cget/Constants"
 )
 
 func Init() {
@@ -17,9 +18,9 @@ func Init() {
 	case "list":
 		showAllFile()
 	case "fetch":
-		getCodeUrl(items[1])
+		fetchCodes(items[1:])
 	default:
-		notfound()
+		not_found()
 	}
 }
 
@@ -29,13 +30,36 @@ func showAllFile() {
 	}
 }
 
-func getCodeUrl(key string) {
-	url := Utils.GetCodeUrl(key)
-	code := Utils.FetchCode(url)
+func fetchCodes(keys []string){
 
-	fmt.Printf("Downloading %s from %s...\n",key,url)
+	statusChan := getCodeFromGithub(keys)
 
-	Utils.Export(key, code)
+	for range keys{
+		select {
+		case status := <-statusChan:
+			Utils.Export(status)
+		}
+	}
+}
+
+func getCodeFromGithub(keys []string) <-chan *Constants.ExportFormat {
+
+	statusChan := make(chan *Constants.ExportFormat)
+
+	for _,key := range keys{
+		go func(key string){
+			url := Utils.GetCodeUrl(key)
+			code := Utils.FetchCode(url)
+
+			statusChan <- &Constants.ExportFormat{
+				Filename: key,
+				Code: code,
+			}
+		}(key)
+	}
+
+	return statusChan
+
 }
 
 func help() {
@@ -44,7 +68,7 @@ func help() {
 	fmt.Println("$ cget fetch [key]\tYou can save file from key.")
 }
 
-func notfound() {
+func not_found() {
 	fmt.Println("this args is not found.")
 
 	fmt.Println("$ cget list\t\tYou can get code list.")

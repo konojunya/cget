@@ -24,3 +24,5 @@ _testmain.go
 *.prof
 
 .idea/
+__test__/
+copy_script.sh
