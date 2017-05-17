@@ -20,7 +20,7 @@ func Init() {
 	case "fetch":
 		fetchCodes(items[1:])
 	default:
-		notfound()
+		not_found()
 	}
 }
 
@@ -32,16 +32,12 @@ func showAllFile() {
 
 func fetchCodes(keys []string){
 
-	fmt.Println(keys)
-
 	statusChan := getCodeFromGithub(keys)
-	fmt.Println(<-statusChan)
 
-	for {
+	for range keys{
 		select {
 		case status := <-statusChan:
 			Utils.Export(status)
-			fmt.Println("join!")
 		}
 	}
 }
@@ -50,12 +46,10 @@ func getCodeFromGithub(keys []string) <-chan *Constants.ExportFormat {
 
 	statusChan := make(chan *Constants.ExportFormat)
 
-	for _, key := range keys {
+	for _,key := range keys{
 		go func(key string){
 			url := Utils.GetCodeUrl(key)
 			code := Utils.FetchCode(url)
-
-			fmt.Printf("Downloading %s from %s...\n",key,url)
 
 			statusChan <- &Constants.ExportFormat{
 				Filename: key,
@@ -74,7 +68,7 @@ func help() {
 	fmt.Println("$ cget fetch [key]\tYou can save file from key.")
 }
 
-func notfound() {
+func not_found() {
 	fmt.Println("this args is not found.")
 
 	fmt.Println("$ cget list\t\tYou can get code list.")

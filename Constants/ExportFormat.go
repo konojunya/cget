@@ -1,6 +1,6 @@
 package Constants
 
 type ExportFormat struct {
-	Filename stirng
+	Filename string
 	Code []byte
 }

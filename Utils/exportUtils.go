@@ -1,22 +1,22 @@
 package Utils
 
 import (
-	_"log"
-	_"os"
-	"fmt"
+	"log"
+	"os"
 	"github.com/konojunya/cget/Constants"
+	"fmt"
 )
 
 
 func Export(exportData *Constants.ExportFormat) {
-	//crr, _ := os.Getwd()
-	//file, err := os.Create(crr + "/" + filename)
-	//if err != nil {
-	//	log.Fatal(err)
-	//}
-	//defer file.Close()
-	//
-	//file.Write(code)
+	crr, _ := os.Getwd()
+	file, err := os.Create(crr + "/" + exportData.Filename)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer file.Close()
 
-	fmt.Println(&exportData)
+	file.Write(exportData.Code)
+
+	fmt.Printf("Export %s\n",exportData.Filename)
 }
